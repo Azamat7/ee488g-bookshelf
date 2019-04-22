@@ -46,7 +46,14 @@
     </h4>
     <h5 class="book-author">By {{book.author|default('Unknown', True)}}</h5>
     <p class="book-description">{{book.description}}</p>
-    <h4 class="book-rating">Rating: {{book.rating}}</h4>
+
+    {% for _ in range(book.rating) %}
+      <i class="glyphicon glyphicon-star" style="color:#F0AD4E"></i>
+    {% endfor %}
+    {% for _ in range(5-book.rating) %}
+      <i class="glyphicon glyphicon-star-empty"></i>
+    {% endfor %}
+
   </div>
 </div>
 
