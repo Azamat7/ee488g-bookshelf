@@ -18,25 +18,14 @@
 
 {% block content %}
 
-<h3>Books</h3>
+<h3>Search results for "{{search_key}}"</h3>
 
-<div class="row">
-  <div class="col-sm-3 col-md-3 col-lg-3">
-    <a href="/books/add" class="btn btn-success btn-sm">
-    <i class="glyphicon glyphicon-plus"></i>
-    Add book
-    </a>
-  </div>
-
-  <div class="col-sm-3 col-md-3 col-lg-3">
-    <form action="{{ url_for('crud.search') }}" method="POST">
-      <input type="text" placeholder="Search.." id="search" name="searchKey">
-      <button href="/books/search" class="btn btn-success btn-sm">
-        <i class="glyphicon glyphicon-search"></i>
-      </button>
-    </form>
-  </div>
-</div>
+<form action="{{ url_for('crud.search') }}" method="POST">
+    <input type="text" placeholder="Search ..." id="search" name="searchKey">
+    <button href="/books/search" class="btn btn-success btn-sm">
+    <i class="glyphicon glyphicon-search"></i>
+    </button>
+</form>
 
 {% for book in books %}
 <div class="media">

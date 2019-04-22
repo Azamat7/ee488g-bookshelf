@@ -34,6 +34,34 @@ def list():
         next_page_token=next_page_token)
 # [END list]
 
+# [START list]
+@crud.route("/search", methods=['GET', 'POST'])
+def search():
+    key = ""
+
+    if request.method == 'POST':
+        key = request.form['searchKey']
+        if key=="":
+            return redirect(url_for('.list'))
+
+    token = request.args.get('page_token', None)
+    if token:
+        token = token.encode('utf-8')
+
+    books, next_page_token = get_model().list(cursor=token)
+    matching_books = []
+    
+    for book in books:
+        if key in book['title'].lower():
+            matching_books.append(book)
+
+    return render_template(
+        "search.html",
+        books=matching_books,
+        next_page_token=next_page_token,
+        search_key = key)
+# [END list]
+
 
 @crud.route('/<id>')
 def view(id):
