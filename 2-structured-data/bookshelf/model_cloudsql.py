@@ -48,6 +48,7 @@ class Book(db.Model):
     description = db.Column(db.String(4096))
     createdBy = db.Column(db.String(255))
     createdById = db.Column(db.String(255))
+    rating = db.Column(db.Integer)
 
     def __repr__(self):
         return "<Book(title='%s', author=%s)" % (self.title, self.author)

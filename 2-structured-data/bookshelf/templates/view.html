@@ -25,6 +25,10 @@
     <i class="glyphicon glyphicon-edit"></i>
     Edit book
   </a>
+  <a href="/books/{{book.id}}/rate" class="btn btn-warning btn-sm">
+    <i class="glyphicon glyphicon-star"></i>
+    Rate book
+  </a>
   <a href="/books/{{book.id}}/delete" class="btn btn-danger btn-sm">
     <i class="glyphicon glyphicon-trash"></i>
     Delete book
@@ -42,6 +46,7 @@
     </h4>
     <h5 class="book-author">By {{book.author|default('Unknown', True)}}</h5>
     <p class="book-description">{{book.description}}</p>
+    <h4 class="book-rating">Rating: {{book.rating}}</h4>
   </div>
 </div>
 

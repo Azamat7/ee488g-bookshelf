@@ -74,6 +74,7 @@ def view(id):
 def add():
     if request.method == 'POST':
         data = request.form.to_dict(flat=True)
+        data['rating'] = 0
 
         book = get_model().create(data)
 
@@ -86,6 +87,19 @@ def add():
 @crud.route('/<id>/edit', methods=['GET', 'POST'])
 def edit(id):
     book = get_model().read(id)
+    
+    if request.method == 'POST':
+        data = request.form.to_dict(flat=True)
+
+        book = get_model().update(data, id)
+
+        return redirect(url_for('.view', id=book['id']))
+    
+    return render_template("form.html", action="Edit", book=book)
+
+@crud.route('/<id>/rate', methods=['GET', 'POST'])
+def rate(id):
+    book = get_model().read(id)
 
     if request.method == 'POST':
         data = request.form.to_dict(flat=True)
@@ -94,7 +108,7 @@ def edit(id):
 
         return redirect(url_for('.view', id=book['id']))
 
-    return render_template("form.html", action="Edit", book=book)
+    return render_template("rating.html", action="Rate", book=book)
 
 
 @crud.route('/<id>/delete')
