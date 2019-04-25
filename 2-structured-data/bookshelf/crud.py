@@ -68,7 +68,10 @@ def search():
 @crud.route('/<id>')
 def view(id):
     book = get_model().read(id)
-    return render_template("view.html", book=book)
+    avgRating = get_model().readRatings(id)
+    ratingReviews = get_model().readReviews(id)
+    print(ratingReviews)
+    return render_template("view.html", book=book, avgRating = avgRating, ratingReviews=ratingReviews)
 
 
 # [START add]
@@ -76,7 +79,7 @@ def view(id):
 def add():
     if request.method == 'POST':
         data = request.form.to_dict(flat=True)
-        data['rating'] = 0
+        #data['rating'] = 0
 
         book = get_model().create(data)
 
@@ -105,12 +108,14 @@ def rate(id):
 
     if request.method == 'POST':
         data = request.form.to_dict(flat=True)
+        data['bookId'] = id
 
-        book = get_model().update(data, id)
+        review = get_model().createReview(data, id)
+
 
         return redirect(url_for('.view', id=book['id']))
 
-    return render_template("rating.html", action="Rate", book=book)
+    return render_template("rating.html", action="Rate", review={})
 
 
 @crud.route('/<id>/delete')

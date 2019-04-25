@@ -46,15 +46,30 @@
     </h4>
     <h5 class="book-author">By {{book.author|default('Unknown', True)}}</h5>
     <p class="book-description">{{book.description}}</p>
-
-    {% for _ in range(book.rating) %}
+    {% for _ in range(avgRating) %}
       <i class="glyphicon glyphicon-star" style="color:#F0AD4E"></i>
     {% endfor %}
-    {% for _ in range(5-book.rating) %}
+    {% for _ in range(5-avgRating) %}
       <i class="glyphicon glyphicon-star-empty"></i>
     {% endfor %}
-
   </div>
+</div>
+
+<div class="media">
+  <h4>Reviews</h4>
+  {% for rr in ratingReviews %}
+    <div class="media">
+      <h5>{{rr[2]}} rated it  
+        {% for _ in range(rr[0]) %}
+          <i class="glyphicon glyphicon-star" style="color:#F0AD4E"></i>
+        {% endfor %}
+        {% for _ in range(5-rr[0]) %}
+          <i class="glyphicon glyphicon-star-empty"></i>
+        {% endfor %}
+      </h5>
+      <p>{{rr[1]}}</p>
+    </div>
+  {% endfor %}
 </div>
 
 {% endblock %}

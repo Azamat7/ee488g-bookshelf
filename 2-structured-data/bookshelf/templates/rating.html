@@ -18,13 +18,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3>{{action}} book</h3>
+<h3>{{action}} review</h3>
 
 <form method="POST" enctype="multipart/form-data">
 
   <div class="form-group">
     <label for="rating">Rating</label>
-    <textarea name="rating" id="rating" class="form-control">{{book.rating}}</textarea>
+    <textarea name="rating" id="rating" class="form-control">{{review.rating}}</textarea>
+
+    <label for="review">Review</label>
+    <textarea name="review" id="review" class="form-control">{{review.review}}</textarea>
+
+    <label for="autor">Author</label>
+    <textarea name="author" id="author" class="form-control">{{review.author}}</textarea>
+
   </div>
 
   <button type="submit" class="btn btn-success">Save</button>

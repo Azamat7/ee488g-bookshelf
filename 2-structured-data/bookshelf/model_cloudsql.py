@@ -48,12 +48,19 @@ class Book(db.Model):
     description = db.Column(db.String(4096))
     createdBy = db.Column(db.String(255))
     createdById = db.Column(db.String(255))
-    rating = db.Column(db.Integer)
 
     def __repr__(self):
         return "<Book(title='%s', author=%s)" % (self.title, self.author)
 # [END model]
 
+class Review(db.Model):
+    __tablename__ = 'reviews'
+
+    id = db.Column(db.Integer, primary_key=True)
+    bookId = db.Column(db.Integer, db.ForeignKey("books.id"))
+    rating = db.Column(db.Integer)
+    review = db.Column(db.String(4096))
+    author = db.Column(db.String(255))
 
 # [START list]
 def list(limit=10, cursor=None):
@@ -76,6 +83,26 @@ def read(id):
     return from_sql(result)
 # [END read]
 
+def readRatings(id):
+    reviews = db.session.query(Review).all()
+    ratingTotal = 0
+    total = 0 
+    for review in reviews:
+        if int(review.bookId) == int(id):
+            ratingTotal += review.rating
+            total+=1
+    if total == 0:
+        return 0
+    return ratingTotal//total 
+
+def readReviews(id):
+    reviews = db.session.query(Review).all()
+    rating_review = []
+    for review in reviews:
+        if int(review.bookId) == int(id):
+            rating_review.append([review.rating,review.review, review.author])
+    return rating_review
+
 
 # [START create]
 def create(data):
@@ -94,6 +121,12 @@ def update(data, id):
     db.session.commit()
     return from_sql(book)
 # [END update]
+
+def createReview(data, id):
+    review = Review(**data)
+    db.session.add(review)
+    db.session.commit()
+    return from_sql(review)
 
 
 def delete(id):
