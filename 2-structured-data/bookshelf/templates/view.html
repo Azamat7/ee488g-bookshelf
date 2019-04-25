@@ -52,7 +52,7 @@
     {% for _ in range(5-(avgRating+0.5)|int) %}
       <i class="glyphicon glyphicon-star-empty"></i>
     {% endfor %}
-    <p>{{avgRating}}/5</p>
+    <p>{{"%.1f"|format(avgRating)}}/5</p>
   </div>
 </div>
 
