@@ -109,6 +109,7 @@ def rate(id):
     if request.method == 'POST':
         data = request.form.to_dict(flat=True)
         data['bookId'] = id
+        data['rating'] = request.form['rating']
 
         review = get_model().createReview(data, id)
 
