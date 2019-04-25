@@ -93,7 +93,7 @@ def readRatings(id):
             total+=1
     if total == 0:
         return 0
-    return ratingTotal//total 
+    return ratingTotal/total 
 
 def readReviews(id):
     reviews = db.session.query(Review).all()

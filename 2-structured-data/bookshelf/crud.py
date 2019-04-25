@@ -43,6 +43,7 @@ def search():
         key = request.form['searchKey']
         if key=="":
             return redirect(url_for('.list'))
+    key = key.lower()
 
     token = request.args.get('page_token', None)
     if token:
@@ -54,7 +55,7 @@ def search():
     for book in books:
         if key in book['title'].lower():
             matching_books.append(book)
-        elif key in book['publishedDate']:
+        elif key in book['author'].lower():
             matching_books.append(book)
 
     return render_template(
